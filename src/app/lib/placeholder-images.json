@@ -1,0 +1,23 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "hero-education",
+      "description": "A modern digital classroom setting with students using tablets",
+      "imageUrl": "https://picsum.photos/seed/schola-hero/1200/600",
+      "imageHint": "education technology"
+    },
+    {
+      "id": "student-profile",
+      "description": "A friendly student portrait",
+      "imageUrl": "https://picsum.photos/seed/student-1/200/200",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "professor-profile",
+      "description": "A professional professor portrait",
+      "imageUrl": "https://picsum.photos/seed/prof-1/200/200",
+      "imageHint": "professional portrait"
+    }
+  ]
+}
