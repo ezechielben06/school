@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,20 +10,20 @@
     --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-    --primary: 221 83% 53%; /* Modern vibrant blue */
+    --primary: 221 83% 53%; /* Vibrant Blue */
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222 47% 11%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 262 83% 58%; /* Vibrant purple accent */
+    --accent: 262 83% 58%; /* Modern Purple */
     --accent-foreground: 210 40% 98%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 221 83% 53%;
-    --radius: 1.25rem;
+    --radius: 1rem;
     --chart-1: 221 83% 53%;
     --chart-2: 262 83% 58%;
     --chart-3: 142 71% 45%;
@@ -60,7 +59,10 @@
     @apply border-border;
   }
   body {
-    @apply bg-[#F8FAFC] text-foreground font-body;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
   }
 }
 
@@ -78,6 +80,17 @@
   100% { transform: translateY(0px); }
 }
 
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  animation: gradient 3s linear infinite;
+  background-size: 200% auto;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -88,16 +101,4 @@
 }
 ::-webkit-scrollbar-thumb {
   @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
-}
-
-/* Smooth Transitions */
-.transition-all {
-  transition-duration: 300ms;
-}
-
-/* Gradients */
-.bg-mesh {
-  background-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-                    radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
-                    radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
 }
