@@ -4,7 +4,7 @@ import { AuthProvider } from '@/lib/auth-store';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'ScholaDesk AI - Plateforme Éducative Moderne',
+  title: 'Academic Twins - Plateforme Éducative Moderne',
   description: 'Gestion étudiante et hub de ressources propulsé par l\'IA',
 };
 

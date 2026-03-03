@@ -34,7 +34,7 @@ export default function LoginPage() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 animate-in fade-in slide-in-from-left-4 duration-1000">
             <Badge className="bg-primary text-white border-none">Nouveau</Badge>
             <span className="text-sm font-semibold text-slate-600 flex items-center gap-1">
-              ScholaDesk v2.0 est arrivé ! <Rocket className="h-3 w-3" />
+              Academic Twins v2.0 est arrivé ! <Rocket className="h-3 w-3" />
             </span>
           </div>
 
@@ -43,7 +43,7 @@ export default function LoginPage() {
               <div className="h-14 w-14 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/30 transform hover:rotate-6 transition-transform">
                 <Sparkles className="h-8 w-8 text-white" />
               </div>
-              <h1 className="text-4xl font-extrabold tracking-tighter text-slate-900 lg:text-5xl">ScholaDesk <span className="text-primary font-black">AI</span></h1>
+              <h1 className="text-4xl font-extrabold tracking-tighter text-slate-900 lg:text-5xl">Academic <span className="text-primary font-black">Twins</span></h1>
             </div>
             
             <h2 className="text-5xl font-extrabold leading-[1.1] tracking-tight text-slate-900 lg:text-6xl font-display">
@@ -137,7 +137,7 @@ export default function LoginPage() {
                 AUTHENTIFICATION SÉCURISÉE
               </div>
               <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest text-center">
-                &copy; 2024 ScholaDesk AI. Tous droits réservés.
+                &copy; 2024 Academic Twins. Tous droits réservés.
               </p>
             </CardFooter>
           </Card>

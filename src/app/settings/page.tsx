@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from 'react';
@@ -203,7 +202,7 @@ export default function SettingsPage() {
             <Card className="border-none shadow-2xl bg-white rounded-[2.5rem] overflow-hidden">
               <CardHeader className="p-6 md:p-10">
                 <CardTitle className="text-2xl font-black font-headline text-slate-900">Apparence & Langue</CardTitle>
-                <CardDescription>Personnalisez votre interface ScholaDesk.</CardDescription>
+                <CardDescription>Personnalisez votre interface Academic Twins.</CardDescription>
               </CardHeader>
               <CardContent className="p-6 md:p-10 pt-0 space-y-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -241,7 +240,7 @@ export default function SettingsPage() {
 
                 <div className="p-8 rounded-[2rem] bg-gradient-to-br from-primary to-accent text-white flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl shadow-primary/30">
                    <div className="text-center lg:text-left">
-                     <h4 className="text-2xl font-black font-headline mb-2 leading-none">ScholaDesk Premium ✨</h4>
+                     <h4 className="text-2xl font-black font-headline mb-2 leading-none">Academic Twins Premium ✨</h4>
                      <p className="text-sm font-medium opacity-80 max-w-sm">Débloquez les thèmes personnalisés et les widgets IA exclusifs.</p>
                    </div>
                    <Button className="bg-white text-slate-900 font-black h-12 px-10 rounded-xl hover:bg-slate-100 shadow-2xl border-none w-full lg:w-auto">Mettre à niveau</Button>

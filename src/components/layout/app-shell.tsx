@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useAuth } from '@/lib/auth-store';
@@ -26,9 +25,7 @@ import {
   LogOut,
   Bell,
   Search,
-  Zap,
-  ChevronRight,
-  Menu
+  Zap
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -82,7 +79,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <Sparkles className="h-6 w-6 text-white" />
             </div>
             <div className="flex flex-col group-data-[collapsible=icon]:hidden overflow-hidden">
-              <span className="font-black text-xl tracking-tighter leading-none font-headline text-slate-900 truncate">ScholaDesk</span>
+              <span className="font-black text-xl tracking-tighter leading-none font-headline text-slate-900 truncate">Academic Twins</span>
               <span className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">Platform AI</span>
             </div>
           </SidebarHeader>
@@ -147,7 +144,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <SidebarTrigger className="h-11 w-11 rounded-xl hover:bg-primary/10 hover:text-primary bg-white shadow-sm border border-slate-100" />
               <div className="md:hidden flex items-center gap-2 px-3 py-1 bg-white rounded-xl border shadow-sm">
                 <Sparkles className="h-4 w-4 text-primary" />
-                <span className="text-xs font-black tracking-tighter">ScholaDesk</span>
+                <span className="text-xs font-black tracking-tighter">Academic Twins</span>
               </div>
             </div>
             

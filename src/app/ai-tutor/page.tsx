@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from 'react';
@@ -46,9 +45,9 @@ export default function AITutorPage() {
               <Sparkles className="h-12 w-12 text-accent" />
             </div>
             <div className="flex-1 text-center md:text-left">
-              <h2 className="text-3xl font-bold font-headline mb-2">Personalized AI Tutor</h2>
+              <h2 className="text-3xl font-bold font-headline mb-2">Academic Twins AI Tutor</h2>
               <p className="text-primary-foreground/80 max-w-xl text-lg">
-                ScholaDesk AI analyzes your performance in Real-Time to suggest the most effective exercises for your specific growth areas.
+                Notre IA analyse votre performance en temps réel pour suggérer les exercices les plus efficaces pour vos domaines de croissance spécifiques.
               </p>
             </div>
             <Button 
@@ -60,12 +59,12 @@ export default function AITutorPage() {
               {loading ? (
                 <>
                   <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Analyzing...
+                  Analyse...
                 </>
               ) : (
                 <>
                   <BrainCircuit className="mr-2 h-5 w-5" />
-                  Get Suggestions
+                  Obtenir des suggestions
                 </>
               )}
             </Button>
@@ -86,8 +85,8 @@ export default function AITutorPage() {
                 <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center mb-2">
                   <GraduationCap className="h-5 w-5" />
                 </div>
-                <CardTitle className="text-base">Grade Analysis</CardTitle>
-                <CardDescription>We look at your strengths and weaknesses across all subjects.</CardDescription>
+                <CardTitle className="text-base">Analyse des notes</CardTitle>
+                <CardDescription>Nous examinons vos forces et faiblesses dans toutes les matières.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-dashed">
@@ -95,8 +94,8 @@ export default function AITutorPage() {
                 <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center mb-2">
                   <BookOpen className="h-5 w-5" />
                 </div>
-                <CardTitle className="text-base">Content Matching</CardTitle>
-                <CardDescription>Our AI finds matching topics and study materials from our hub.</CardDescription>
+                <CardTitle className="text-base">Correspondance de contenu</CardTitle>
+                <CardDescription>Notre IA trouve les sujets et les supports d'étude correspondants dans notre hub.</CardDescription>
               </CardHeader>
             </Card>
             <Card className="border-dashed">
@@ -104,8 +103,8 @@ export default function AITutorPage() {
                 <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center mb-2">
                   <BrainCircuit className="h-5 w-5" />
                 </div>
-                <CardTitle className="text-base">Custom Challenges</CardTitle>
-                <CardDescription>Get exercises specifically tuned to your difficulty level.</CardDescription>
+                <CardTitle className="text-base">Défis personnalisés</CardTitle>
+                <CardDescription>Obtenez des exercices spécifiquement adaptés à votre niveau de difficulté.</CardDescription>
               </CardHeader>
             </Card>
           </div>
@@ -115,7 +114,7 @@ export default function AITutorPage() {
           <div className="grid grid-cols-1 gap-6 animate-in slide-in-from-bottom-10 duration-1000">
             <h3 className="text-xl font-bold font-headline flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-accent" />
-              Your Tailored Learning Path
+              Votre parcours d'apprentissage sur mesure
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {suggestions.map((s, idx) => (
@@ -136,13 +135,13 @@ export default function AITutorPage() {
                       {s.description}
                     </p>
                     <div className="p-4 rounded-xl bg-muted/50 border border-muted-foreground/10 text-xs">
-                      <p className="font-bold uppercase tracking-widest text-[10px] text-muted-foreground mb-2">AI Reasoning</p>
+                      <p className="font-bold uppercase tracking-widest text-[10px] text-muted-foreground mb-2">Raisonnement IA</p>
                       <p className="italic text-muted-foreground">"{s.reasoning}"</p>
                     </div>
                   </CardContent>
                   <CardFooter className="pt-2">
                     <Button className="w-full gap-2 group-hover:bg-primary transition-colors">
-                      Start Exercise <ChevronRight className="h-4 w-4" />
+                      Commencer l'exercice <ChevronRight className="h-4 w-4" />
                     </Button>
                   </CardFooter>
                 </Card>
