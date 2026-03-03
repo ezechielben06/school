@@ -23,6 +23,7 @@ import { MOCK_RESOURCES } from '@/lib/mock-data';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function ResourcesPage() {
   const { role } = useAuth();
@@ -47,7 +48,7 @@ export default function ResourcesPage() {
           {role === 'professor' && (
             <Link href="/admin">
               <Button className="w-full md:w-auto gap-2 h-12 md:h-14 px-8 shadow-xl shadow-primary/20 bg-primary text-white font-black border-none rounded-2xl hover:scale-105 transition-transform">
-                <Plus className="h-5 w-5" /> Ajouter
+                <Plus className="h-5 w-5" /> Ajouter une Ressource
               </Button>
             </Link>
           )}
@@ -56,21 +57,21 @@ export default function ResourcesPage() {
         <div className="flex flex-col lg:flex-row gap-4 items-center">
           <div className="relative flex-1 w-full">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
-            <Input className="pl-12 h-14 rounded-2xl bg-white border-none shadow-xl shadow-slate-200/50 focus:ring-2 focus:ring-primary transition-all text-lg font-medium" placeholder="Rechercher..." />
+            <Input className="pl-12 h-14 rounded-2xl bg-white border-none shadow-xl shadow-slate-200/50 focus:ring-2 focus:ring-primary transition-all text-lg font-medium" placeholder="Rechercher une ressource..." />
           </div>
           <div className="flex flex-wrap md:flex-nowrap gap-2 w-full lg:w-auto">
-            <div className="flex-1 lg:flex-none overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
+            <div className="flex-1 lg:flex-none overflow-x-auto pb-2 md:pb-0">
               <Tabs defaultValue="all" className="w-auto">
                 <TabsList className="h-14 bg-white border-none shadow-xl shadow-slate-200/50 p-1 rounded-2xl">
                   <TabsTrigger value="all" className="px-6 rounded-xl font-bold data-[state=active]:bg-primary data-[state=active]:text-white">Tous</TabsTrigger>
-                  <TabsTrigger value="docs" className="px-6 rounded-xl font-bold">Docs</TabsTrigger>
+                  <TabsTrigger value="docs" className="px-6 rounded-xl font-bold">Documents</TabsTrigger>
                   <TabsTrigger value="videos" className="px-6 rounded-xl font-bold">Vidéos</TabsTrigger>
                   <TabsTrigger value="links" className="px-6 rounded-xl font-bold">Liens</TabsTrigger>
                 </TabsList>
               </Tabs>
             </div>
             <Button variant="outline" className="h-14 px-8 gap-2 rounded-2xl border-none bg-white shadow-xl shadow-slate-200/50 font-bold hover:text-primary transition-colors shrink-0 flex-1 md:flex-none">
-              <Filter className="h-5 w-5" /> <span className="hidden sm:inline">Filtres</span>
+              <Filter className="h-5 w-5" /> Filtres
             </Button>
           </div>
         </div>
@@ -78,18 +79,24 @@ export default function ResourcesPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {MOCK_RESOURCES.map((resource) => (
             <Link key={resource.id} href={`/courses/${resource.courseId}`}>
-              <Card className="group hover:scale-[1.02] hover:shadow-2xl transition-all duration-300 border-none shadow-xl bg-white overflow-hidden flex flex-col h-full rounded-[2rem]">
-                <div className={`h-40 w-full relative overflow-hidden bg-gradient-to-br ${
-                  resource.type === 'video' ? 'from-rose-50 to-rose-100' : 
-                  resource.type === 'link' ? 'from-emerald-50 to-emerald-100' : 
-                  'from-blue-50 to-blue-100'
-                }`}>
-                  <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:scale-110 transition-transform">
-                    {resource.type === 'video' ? <PlayCircle className="h-24 w-24" /> : <FileText className="h-24 w-24" />}
+              <Card className="group hover:scale-[1.02] hover:shadow-2xl transition-all duration-300 border-none shadow-xl bg-white overflow-hidden flex flex-col h-full rounded-[2.5rem]">
+                <div className="h-48 w-full relative overflow-hidden">
+                  <Image 
+                    src={resource.imageUrl || `https://picsum.photos/seed/${resource.id}/400/300`} 
+                    alt={resource.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    data-ai-hint="educational resource"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="h-14 w-14 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/30">
+                       {resource.type === 'video' ? <PlayCircle className="h-8 w-8" /> : <ExternalLink className="h-8 w-8" />}
+                    </div>
                   </div>
                   <div className="absolute top-4 right-4">
-                     <Button variant="ghost" size="icon" className="h-10 w-10 bg-white/70 backdrop-blur-md rounded-xl hover:bg-white">
-                        <MoreVertical className="h-5 w-5 text-slate-600" />
+                     <Button variant="ghost" size="icon" className="h-10 w-10 bg-white/20 backdrop-blur-md rounded-xl hover:bg-white text-white hover:text-slate-900 border border-white/20">
+                        <MoreVertical className="h-5 w-5" />
                      </Button>
                   </div>
                   <div className="absolute bottom-4 left-4">
@@ -104,7 +111,7 @@ export default function ResourcesPage() {
                     {resource.title}
                   </CardTitle>
                   <CardDescription className="flex items-center gap-2 mt-2 font-bold uppercase tracking-widest text-[10px] text-slate-400">
-                    <div className="p-2 bg-slate-50 rounded-lg">
+                    <div className="p-2 bg-slate-50 rounded-lg group-hover:bg-primary/10 transition-colors">
                        {getIcon(resource.type)}
                     </div>
                     <span className="ml-1">{resource.type}</span>
@@ -128,21 +135,22 @@ export default function ResourcesPage() {
           ))}
         </div>
         
-        <div className="p-6 md:p-10 rounded-[2.5rem] bg-white shadow-2xl shadow-slate-200/50 flex flex-col md:flex-row items-center justify-around gap-8 text-center">
-            <div className="space-y-1">
-              <p className="text-3xl md:text-4xl font-black text-primary">120+</p>
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Ressources</p>
+        <div className="p-10 rounded-[3rem] bg-slate-900 text-white flex flex-col md:flex-row items-center justify-around gap-8 text-center relative overflow-hidden shadow-2xl">
+            <div className="space-y-1 relative z-10">
+              <p className="text-4xl md:text-5xl font-black text-primary">150+</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Ressources en ligne</p>
             </div>
-            <div className="h-12 w-px bg-slate-100 hidden md:block" />
-            <div className="space-y-1">
-              <p className="text-3xl md:text-4xl font-black text-accent">45h</p>
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Contenu Vidéo</p>
+            <div className="h-16 w-px bg-white/10 hidden md:block relative z-10" />
+            <div className="space-y-1 relative z-10">
+              <p className="text-4xl md:text-5xl font-black text-accent">60h</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Vidéos de cours</p>
             </div>
-            <div className="h-12 w-px bg-slate-100 hidden md:block" />
-            <div className="space-y-1">
-              <p className="text-3xl md:text-4xl font-black text-emerald-500">15</p>
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Nouveautés</p>
+            <div className="h-16 w-px bg-white/10 hidden md:block relative z-10" />
+            <div className="space-y-1 relative z-10">
+              <p className="text-4xl md:text-5xl font-black text-emerald-400">24/7</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Support AI Tutor</p>
             </div>
+            <div className="absolute top-0 right-0 h-full w-1/2 bg-gradient-to-l from-primary/10 to-transparent pointer-events-none" />
         </div>
       </div>
     </AppShell>

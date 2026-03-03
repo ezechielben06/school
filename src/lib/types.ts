@@ -15,6 +15,7 @@ export interface Course {
   code: string;
   professorId: string;
   description: string;
+  imageUrl?: string;
 }
 
 export interface Grade {
@@ -36,4 +37,5 @@ export interface Resource {
   url: string;
   category: string;
   uploadedAt: string;
+  imageUrl?: string;
 }
