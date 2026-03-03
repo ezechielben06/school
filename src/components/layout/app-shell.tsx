@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useAuth } from '@/lib/auth-store';
@@ -68,6 +69,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     { name: 'Notes', href: '/grades', icon: GraduationCap },
     ...(role === 'student' ? [{ name: 'AI Tutor', href: '/ai-tutor', icon: Sparkles }] : []),
     ...(role === 'professor' ? [{ name: 'Administration', href: '/admin', icon: Users }] : []),
+    { name: 'Paramètres', href: '/settings', icon: Settings },
   ];
 
   return (
@@ -159,9 +161,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                  <Bell className="h-5 w-5 text-slate-600" />
                  <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-rose-500 border-2 border-white">3</Badge>
                </Button>
-               <Button variant="ghost" size="icon" className="h-11 w-11 rounded-2xl bg-white shadow-sm border border-slate-100 hover:bg-slate-50">
-                 <Settings className="h-5 w-5 text-slate-600" />
-               </Button>
+               <Link href="/settings">
+                 <Button variant="ghost" size="icon" className="h-11 w-11 rounded-2xl bg-white shadow-sm border border-slate-100 hover:bg-slate-50">
+                   <Settings className="h-5 w-5 text-slate-600" />
+                 </Button>
+               </Link>
                <div className="h-10 w-px bg-slate-200 mx-2 hidden sm:block" />
                <Avatar className="h-11 w-11 border-2 border-white shadow-lg hidden sm:block">
                  <AvatarImage src={user.avatar} />
