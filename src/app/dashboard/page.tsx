@@ -23,7 +23,7 @@ import {
   Activity,
   BarChart3
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MOCK_ACTIVITIES, MOCK_UPCOMING_EVENTS, MOCK_COURSES } from '@/lib/mock-data';
 import { Progress } from "@/components/ui/progress";
