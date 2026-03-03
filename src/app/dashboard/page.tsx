@@ -28,7 +28,7 @@ import { Button } from '@/components/ui/button';
 import { MOCK_ACTIVITIES, MOCK_UPCOMING_EVENTS, MOCK_COURSES } from '@/lib/mock-data';
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from 'next/link';
 import { 
   AreaChart, 
