@@ -19,7 +19,11 @@ import {
   Flame,
   Star,
   Trophy,
-  Target
+  Target,
+  Users,
+  Search,
+  Activity,
+  BarChart3
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -36,7 +40,8 @@ import {
   Tooltip, 
   ResponsiveContainer,
   BarChart,
-  Bar
+  Bar,
+  Cell
 } from 'recharts';
 
 const chartData = [
@@ -53,6 +58,14 @@ const subjectData = [
   { subject: 'Physique', value: 74 },
   { subject: 'Design', value: 88 },
   { subject: 'Bio', value: 68 },
+];
+
+const engagementData = [
+  { name: 'Lun', engagement: 65 },
+  { name: 'Mar', engagement: 88 },
+  { name: 'Mer', engagement: 72 },
+  { name: 'Jeu', engagement: 95 },
+  { name: 'Ven', engagement: 82 },
 ];
 
 export default function DashboardPage() {
@@ -263,100 +276,149 @@ export default function DashboardPage() {
     );
   }
 
+  // PROFESSOR DASHBOARD VIEW
   return (
     <AppShell>
       <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div>
-            <h2 className="text-4xl font-extrabold font-headline tracking-tight">Espace Académique 🏛️</h2>
-            <p className="text-muted-foreground text-lg">Supervisez vos classes et optimisez l'engagement étudiant.</p>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 mb-2">
+              <Badge className="bg-emerald-500 text-white border-none font-bold uppercase tracking-wider text-[10px]">Statut : En Direct</Badge>
+              <div className="flex items-center gap-1 text-[10px] font-black text-primary uppercase tracking-widest bg-primary/10 px-3 py-1 rounded-full">
+                <Activity className="h-3 w-3" /> Analyse Prédictive Active
+              </div>
+            </div>
+            <h2 className="text-4xl font-black font-headline tracking-tight text-slate-900">Command Center 🏛️</h2>
+            <p className="text-slate-500 text-lg">Gérez vos cohortes et optimisez l'apprentissage avec l'IA.</p>
           </div>
           <div className="flex gap-2">
-             <Button variant="outline" className="gap-2 border-2 h-12 px-6 rounded-xl hover:bg-slate-50">
-               <CalendarIcon className="h-4 w-4" /> Planning Professeur
+             <Button variant="outline" className="gap-2 border-2 h-14 px-8 rounded-2xl hover:bg-white hover:shadow-lg transition-all font-bold">
+               <CalendarIcon className="h-5 w-5 text-primary" /> Planning Académique
              </Button>
-             <Button className="gap-2 shadow-xl shadow-primary/20 h-12 px-6 bg-primary text-white font-black border-none rounded-xl hover:scale-105 transition-transform">
-               <Zap className="h-4 w-4 fill-current" /> Analyse Prédictive
+             <Button className="gap-2 shadow-2xl shadow-primary/30 h-14 px-8 bg-primary text-white font-black border-none rounded-2xl hover:scale-105 transition-transform">
+               <Zap className="h-5 w-5 fill-current" /> Nouveau Projet IA
              </Button>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <StatCard title="Étudiants Actifs" value="124" icon={GraduationCap} trend={{ value: 12, isUp: true }} />
-          <StatCard title="Ressources Partagées" value="48" icon={BookOpen} description="5 ajoutées ce mois" />
-          <StatCard title="Moyenne de Classe" value="78.5%" icon={Star} trend={{ value: 2.1, isUp: false }} />
+          <StatCard title="Étudiants Actifs" value="124" icon={Users} trend={{ value: 12, isUp: true }} className="bg-white shadow-xl shadow-slate-200/50 border-none" />
+          <StatCard title="Ressources Partagées" value="48" icon={BookOpen} description="5 ajoutées cette semaine" iconColor="bg-blue-100 text-blue-600" />
+          <StatCard title="Moyenne de Classe" value="78.5%" icon={Star} trend={{ value: 2.1, isUp: false }} iconColor="bg-amber-100 text-amber-600" />
           <StatCard title="Taux de Rendu" value="94%" icon={CheckCircle} iconColor="bg-emerald-100 text-emerald-600" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-           <Card className="border-none shadow-xl bg-white/70 backdrop-blur-md">
-             <CardHeader className="flex flex-row items-center justify-between">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+           <Card className="lg:col-span-2 border-none shadow-2xl bg-white overflow-hidden">
+             <CardHeader className="flex flex-row items-center justify-between bg-slate-50/50 border-b p-8">
                <div>
-                 <CardTitle className="text-xl font-headline">Engagement par Cours</CardTitle>
-                 <CardDescription>Participation et activité des étudiants</CardDescription>
+                 <CardTitle className="text-2xl font-black font-headline flex items-center gap-2">
+                   <BarChart3 className="h-6 w-6 text-primary" /> Engagement par Cours
+                 </CardTitle>
+                 <CardDescription className="text-base">Participation et rétention moyenne des étudiants</CardDescription>
                </div>
-               <Badge className="bg-emerald-100 text-emerald-700 font-black border-none">+8% vs mois dernier</Badge>
+               <div className="flex gap-4 items-center">
+                  <div className="text-right">
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Global</p>
+                    <p className="text-xl font-black text-emerald-500">+8.2%</p>
+                  </div>
+                  <Badge className="bg-emerald-100 text-emerald-700 font-black border-none px-4 py-2 rounded-xl">Excellent</Badge>
+               </div>
              </CardHeader>
-             <CardContent>
-                <div className="space-y-8 pt-4">
-                   {[
-                     { name: 'Intelligence Artificielle', val: 94, color: 'bg-primary' },
-                     { name: 'Mathématiques Avancées', val: 62, color: 'bg-amber-500' },
-                     { name: 'Bio-Informatique', val: 78, color: 'bg-indigo-500' },
-                     { name: 'Design UI/UX', val: 88, color: 'bg-emerald-500' }
-                   ].map((c, i) => (
-                      <div key={i} className="space-y-2">
-                        <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
-                          <span className="text-muted-foreground">{c.name}</span>
-                          <span className="text-primary font-black">{c.val}%</span>
+             <CardContent className="p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                  <div className="space-y-8 pt-4">
+                     {[
+                       { name: 'Intelligence Artificielle', val: 94, color: 'hsl(var(--primary))' },
+                       { name: 'Mathématiques Avancées', val: 62, color: '#f59e0b' },
+                       { name: 'Bio-Informatique', val: 78, color: '#6366f1' },
+                       { name: 'Design UI/UX', val: 88, color: '#10b981' }
+                     ].map((c, i) => (
+                        <div key={i} className="space-y-3">
+                          <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
+                            <span className="text-slate-500 flex items-center gap-2">
+                              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: c.color }} />
+                              {c.name}
+                            </span>
+                            <span className="text-primary font-black text-sm">{c.val}%</span>
+                          </div>
+                          <Progress value={c.val} className="h-3 bg-slate-100" />
                         </div>
-                        <Progress value={c.val} className="h-4 bg-muted" />
-                      </div>
-                   ))}
+                     ))}
+                  </div>
+                  <div className="h-[250px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={engagementData}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                        <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12, fontWeight: 700}} dy={10} />
+                        <YAxis hide />
+                        <Tooltip cursor={{fill: '#f8fafc'}} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
+                        <Bar dataKey="engagement" radius={[8, 8, 0, 0]}>
+                          {engagementData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={index === 3 ? 'hsl(var(--primary))' : '#e2e8f0'} />
+                          ))}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
                 </div>
              </CardContent>
            </Card>
 
-           <Card className="border-none shadow-xl bg-white/70 backdrop-blur-md">
-             <CardHeader>
-               <CardTitle className="text-xl font-headline">Centre d'Alertes</CardTitle>
-               <CardDescription>Actions immédiates requises</CardDescription>
-             </CardHeader>
-             <CardContent className="space-y-4 pt-2">
-                <div className="flex gap-4 p-5 rounded-[2rem] bg-rose-50 border-l-[6px] border-rose-500 shadow-sm group hover:bg-rose-100/50 transition-colors">
-                   <div className="h-12 w-12 rounded-2xl bg-rose-100 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <AlertCircle className="h-6 w-6 text-rose-600" />
+           <div className="space-y-8">
+             <Card className="border-none shadow-2xl bg-white overflow-hidden">
+               <CardHeader className="bg-slate-900 text-white p-6">
+                 <CardTitle className="text-xl font-headline flex items-center gap-2 uppercase tracking-tighter">
+                   <AlertCircle className="h-5 w-5 text-rose-500 fill-current" /> Centre d'Alertes
+                 </CardTitle>
+                 <CardDescription className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Actions immédiates requises</CardDescription>
+               </CardHeader>
+               <CardContent className="p-4 space-y-4 pt-6">
+                  <div className="flex gap-4 p-5 rounded-[2rem] bg-rose-50 border-2 border-rose-100 shadow-sm group hover:bg-rose-100/50 transition-all hover:scale-[1.02]">
+                     <div className="h-12 w-12 rounded-2xl bg-rose-500 flex items-center justify-center shrink-0 shadow-lg shadow-rose-200">
+                        <CheckCircle className="h-6 w-6 text-white" />
+                     </div>
+                     <div className="flex-1 min-w-0">
+                        <p className="text-sm font-black text-rose-900 uppercase tracking-tight">12 copies à corriger</p>
+                        <p className="text-xs text-rose-700 mt-1 font-medium italic">Quiz : IA (Retard J-2)</p>
+                        <Button size="sm" className="bg-rose-600 hover:bg-rose-700 text-white font-black h-9 px-6 rounded-xl shadow-md mt-3 w-full">Corriger maintenant</Button>
+                     </div>
+                  </div>
+                  <div className="flex gap-4 p-5 rounded-[2rem] bg-amber-50 border-2 border-amber-100 shadow-sm group hover:bg-amber-100/50 transition-all hover:scale-[1.02]">
+                     <div className="h-12 w-12 rounded-2xl bg-amber-500 flex items-center justify-center shrink-0 shadow-lg shadow-amber-200">
+                        <MessageSquare className="h-6 w-6 text-white" />
+                     </div>
+                     <div className="flex-1 min-w-0">
+                        <p className="text-sm font-black text-amber-900 uppercase tracking-tight">Question Prioritaire</p>
+                        <p className="text-xs text-amber-700 mt-1 font-medium">Alex Johnson attend votre retour.</p>
+                        <Button size="sm" variant="outline" className="border-amber-200 text-amber-800 bg-white font-black h-9 px-6 rounded-xl shadow-sm hover:bg-amber-100 mt-3 w-full">Répondre</Button>
+                     </div>
+                  </div>
+                  <div className="p-4 text-center border-t mt-2">
+                    <Button variant="ghost" size="sm" className="text-slate-400 font-black gap-2 hover:bg-slate-50 uppercase tracking-widest text-[10px]">
+                      Voir tout l'historique d'alertes <ArrowRight className="h-3 w-3" />
+                    </Button>
+                  </div>
+               </CardContent>
+             </Card>
+
+             <Card className="border-none shadow-xl bg-gradient-to-br from-primary to-accent p-1 overflow-hidden group">
+                <CardContent className="bg-white rounded-[calc(var(--radius)-4px)] p-6">
+                   <div className="flex items-center justify-between mb-4">
+                      <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                        <TrendingUp className="h-6 w-6 text-primary" />
+                      </div>
+                      <Badge className="bg-emerald-500 text-white border-none font-black text-[10px]">+14%</Badge>
                    </div>
-                   <div className="flex-1 min-w-0">
-                      <p className="text-sm font-black text-rose-900 uppercase tracking-tight">12 copies à corriger</p>
-                      <p className="text-xs text-rose-700 mt-1 font-medium italic">Quiz : Fondamentaux de l'IA (Retard de 2 jours)</p>
-                   </div>
-                   <Button size="sm" className="bg-rose-600 hover:bg-rose-700 text-white font-black h-10 px-6 rounded-xl shadow-lg shadow-rose-200">Corriger</Button>
-                </div>
-                <div className="flex gap-4 p-5 rounded-[2rem] bg-amber-50 border-l-[6px] border-amber-500 shadow-sm group hover:bg-amber-100/50 transition-colors">
-                   <div className="h-12 w-12 rounded-2xl bg-amber-100 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <MessageSquare className="h-6 w-6 text-amber-600" />
-                   </div>
-                   <div className="flex-1 min-w-0">
-                      <p className="text-sm font-black text-amber-900 uppercase tracking-tight">Question Prioritaire</p>
-                      <p className="text-xs text-amber-700 mt-1 font-medium">Alex Johnson a posé une question sur le projet final.</p>
-                   </div>
-                   <Button size="sm" variant="outline" className="border-amber-200 text-amber-800 bg-white font-black h-10 px-6 rounded-xl shadow-sm hover:bg-amber-100 transition-colors">Répondre</Button>
-                </div>
-                <div className="flex gap-4 p-5 rounded-[2rem] bg-indigo-50 border-l-[6px] border-indigo-500 shadow-sm group hover:bg-indigo-100/50 transition-colors">
-                   <div className="h-12 w-12 rounded-2xl bg-indigo-100 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <CalendarIcon className="h-6 w-6 text-indigo-600" />
-                   </div>
-                   <div className="flex-1 min-w-0">
-                      <p className="text-sm font-black text-indigo-900 uppercase tracking-tight">Soutenance à venir</p>
-                      <p className="text-xs text-indigo-700 mt-1 font-medium">Soutenance Projet Design prévue demain à 14:00.</p>
-                   </div>
-                   <Button size="sm" variant="outline" className="border-indigo-200 text-indigo-800 bg-white font-black h-10 px-6 rounded-xl shadow-sm hover:bg-indigo-100 transition-colors">Agenda</Button>
-                </div>
-             </CardContent>
-           </Card>
+                   <h4 className="text-xl font-black font-headline mb-1">Croissance d'Engagement</h4>
+                   <p className="text-sm text-slate-500 font-medium mb-4">L'utilisation des ressources IA a augmenté significativement ce mois-ci.</p>
+                   <Button className="w-full bg-primary font-black rounded-xl h-12 shadow-lg shadow-primary/20">Voir les analyses détaillées</Button>
+                </CardContent>
+             </Card>
+           </div>
         </div>
       </div>
     </AppShell>
   );
 }
+
