@@ -6,7 +6,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { GraduationCap, Users, Sparkles, ShieldCheck } from 'lucide-react';
+import { GraduationCap, Users, Sparkles, ShieldCheck, Zap, Globe, Rocket } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 export default function LoginPage() {
   const { user, login, isLoading } = useAuth();
@@ -21,76 +22,139 @@ export default function LoginPage() {
   if (isLoading) return null;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#F0F2F5] p-4 relative overflow-hidden">
-      {/* Background Decor */}
-      <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-[-10%] right-[-5%] w-[40%] h-[40%] bg-accent/5 rounded-full blur-3xl" />
+    <div className="min-h-screen flex items-center justify-center bg-[#F8FAFC] p-4 relative overflow-hidden">
+      {/* Dynamic Background Elements */}
+      <div className="absolute top-[-10%] left-[-5%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute bottom-[-10%] right-[-5%] w-[40%] h-[40%] bg-accent/10 rounded-full blur-[100px]" />
+      
+      {/* Decorative Grid */}
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] pointer-events-none" />
 
-      <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center z-10">
-        <div className="space-y-6">
-          <div className="flex items-center gap-2 mb-8">
-            <div className="h-12 w-12 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
-              <Sparkles className="h-7 w-7 text-white" />
+      <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center z-10">
+        <div className="space-y-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-200 animate-in fade-in slide-in-from-left-4 duration-1000">
+            <Badge className="bg-primary text-white border-none">Nouveau</Badge>
+            <span className="text-sm font-semibold text-slate-600 flex items-center gap-1 italic">
+              ScholaDesk v2.0 est arrivé ! <Rocket className="h-3 w-3" />
+            </span>
+          </div>
+
+          <div className="space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="h-14 w-14 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/30 transform hover:rotate-6 transition-transform">
+                <Sparkles className="h-8 w-8 text-white" />
+              </div>
+              <h1 className="text-4xl font-black font-headline tracking-tighter text-slate-900 lg:text-5xl">ScholaDesk <span className="text-primary">AI</span></h1>
             </div>
-            <h1 className="text-3xl font-extrabold font-headline tracking-tight text-primary">ScholaDesk AI</h1>
+            
+            <h2 className="text-5xl font-extrabold leading-[1.1] tracking-tight text-slate-900 lg:text-6xl">
+              Apprenez <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">plus vite</span>,<br /> gérez mieux.
+            </h2>
+            <p className="text-slate-600 text-xl max-w-lg leading-relaxed">
+              La plateforme éducative qui utilise l'intelligence artificielle pour personnaliser votre parcours et simplifier la gestion académique.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+            <div className="flex items-center gap-4 p-4 bg-white rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+              <div className="p-3 bg-blue-50 rounded-2xl">
+                <Zap className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <p className="font-bold text-slate-900 leading-none">Vitesse AI</p>
+                <p className="text-xs text-slate-500 mt-1">Analyse en temps réel</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4 p-4 bg-white rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+              <div className="p-3 bg-purple-50 rounded-2xl">
+                <Globe className="h-6 w-6 text-accent" />
+              </div>
+              <div>
+                <p className="font-bold text-slate-900 leading-none">Collaboratif</p>
+                <p className="text-xs text-slate-500 mt-1">Étudiez ensemble</p>
+              </div>
+            </div>
           </div>
           
-          <h2 className="text-4xl font-bold leading-tight">
-            The next generation of <span className="text-primary">student management</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-md">
-            Empowering students and professors with AI-driven insights, resource sharing, and seamless academic coordination.
-          </p>
-
-          <div className="grid grid-cols-2 gap-4 pt-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-white rounded-lg shadow-sm">
-                <ShieldCheck className="h-5 w-5 text-accent" />
-              </div>
-              <span className="text-sm font-medium">Secure Access</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-white rounded-lg shadow-sm">
-                <Sparkles className="h-5 w-5 text-accent" />
-              </div>
-              <span className="text-sm font-medium">AI Insights</span>
+          <div className="flex items-center gap-4 pt-4 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all cursor-default">
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Utilisé par</p>
+            <div className="flex gap-6 items-center">
+              <span className="font-black italic text-xl">MIT</span>
+              <span className="font-black italic text-xl">Polytech</span>
+              <span className="font-black italic text-xl">Oxford</span>
             </div>
           </div>
         </div>
 
-        <Card className="shadow-2xl border-none ring-1 ring-black/5">
-          <CardHeader className="text-center pb-2">
-            <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
-            <CardDescription>Select your role to continue to your dashboard</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4 pt-4">
-            <div className="grid grid-cols-1 gap-4">
-              <Button 
-                variant="outline" 
-                className="h-20 flex flex-col items-center justify-center gap-1 hover:border-primary hover:bg-primary/5 group"
-                onClick={() => login('student')}
-              >
-                <GraduationCap className="h-6 w-6 text-muted-foreground group-hover:text-primary" />
-                <span className="font-semibold">I am a Student</span>
-              </Button>
-              
-              <Button 
-                variant="outline" 
-                className="h-20 flex flex-col items-center justify-center gap-1 hover:border-primary hover:bg-primary/5 group"
-                onClick={() => login('professor')}
-              >
-                <Users className="h-6 w-6 text-muted-foreground group-hover:text-primary" />
-                <span className="font-semibold">I am a Professor</span>
-              </Button>
-            </div>
-          </CardContent>
-          <CardFooter className="flex flex-col items-center border-t pt-6 bg-muted/30">
-            <p className="text-xs text-muted-foreground">
-              By continuing, you agree to our Terms of Service.
-            </p>
-          </CardFooter>
-        </Card>
+        <div className="relative">
+          {/* Accent decoration for the card */}
+          <div className="absolute -top-6 -right-6 h-24 w-24 bg-accent/20 rounded-full blur-2xl animate-float" />
+          <div className="absolute -bottom-6 -left-6 h-32 w-32 bg-primary/20 rounded-full blur-3xl" />
+
+          <Card className="shadow-[0_20px_50px_rgba(8,_112,_184,_0.1)] border-none ring-1 ring-slate-200/50 bg-white/80 backdrop-blur-xl relative z-10 overflow-hidden">
+            <div className="h-2 bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] animate-gradient" />
+            <CardHeader className="text-center pt-10 pb-4">
+              <CardTitle className="text-3xl font-black tracking-tight">Accès Portail</CardTitle>
+              <CardDescription className="text-base">Choisissez votre profil pour continuer</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6 px-8 pt-6">
+              <div className="grid grid-cols-1 gap-4">
+                <button 
+                  className="group relative flex flex-col items-center justify-center gap-3 p-8 rounded-3xl border-2 border-slate-100 bg-white hover:border-primary hover:bg-primary/5 transition-all duration-300 overflow-hidden"
+                  onClick={() => login('student')}
+                >
+                  <div className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-10 transition-opacity">
+                    <GraduationCap className="h-16 w-16" />
+                  </div>
+                  <div className="h-14 w-14 bg-slate-50 rounded-2xl flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+                    <GraduationCap className="h-7 w-7" />
+                  </div>
+                  <div className="text-center">
+                    <p className="font-black text-xl text-slate-900 uppercase tracking-tight">Espace Étudiant</p>
+                    <p className="text-sm text-slate-500">Accédez à vos cours et notes</p>
+                  </div>
+                </button>
+                
+                <button 
+                  className="group relative flex flex-col items-center justify-center gap-3 p-8 rounded-3xl border-2 border-slate-100 bg-white hover:border-accent hover:bg-accent/5 transition-all duration-300 overflow-hidden"
+                  onClick={() => login('professor')}
+                >
+                   <div className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-10 transition-opacity">
+                    <Users className="h-16 w-16" />
+                  </div>
+                  <div className="h-14 w-14 bg-slate-50 rounded-2xl flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-colors">
+                    <Users className="h-7 w-7" />
+                  </div>
+                  <div className="text-center">
+                    <p className="font-black text-xl text-slate-900 uppercase tracking-tight">Espace Professeur</p>
+                    <p className="text-sm text-slate-500">Gérez vos classes et examens</p>
+                  </div>
+                </button>
+              </div>
+            </CardContent>
+            <CardFooter className="flex flex-col items-center border-t py-8 bg-slate-50/50">
+              <div className="flex items-center gap-2 text-slate-400 text-xs font-semibold mb-4">
+                <ShieldCheck className="h-4 w-4" />
+                AUTHENTIFICATION SÉCURISÉE
+              </div>
+              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest text-center">
+                &copy; 2024 ScholaDesk AI. Tous droits réservés.
+              </p>
+            </CardFooter>
+          </Card>
+        </div>
       </div>
+      
+      <style jsx>{`
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+          animation: gradient 3s linear infinite;
+        }
+      `}</style>
     </div>
   );
 }
