@@ -61,15 +61,31 @@ export const MOCK_GRADES: Grade[] = [
   { id: 'g-6', studentId: 'std-1', courseId: 'c-4', courseName: 'Design d\'Interface', topic: 'Théorie des Couleurs', score: 95, maxScore: 100, date: '22 Mars 2024' }
 ];
 
-export const MOCK_RESOURCES: Resource[] = [
-  { id: 'r-1', courseId: 'c-1', title: 'Aide-mémoire : Calcul Intégral', type: 'document', url: '#', category: 'Handouts', uploadedAt: '01 Mars 2024', imageUrl: 'https://picsum.photos/seed/r1/400/300' },
-  { id: 'r-2', courseId: 'c-2', title: 'Comprendre les Transformers', type: 'video', url: '#', category: 'Lectures', uploadedAt: '05 Mars 2024', imageUrl: 'https://picsum.photos/seed/r2/400/300' },
-  { id: 'r-3', courseId: 'c-1', title: 'Exercices d\'Entraînement : Algèbre', type: 'document', url: '#', category: 'Exercices', uploadedAt: '08 Mars 2024', imageUrl: 'https://picsum.photos/seed/r3/400/300' },
-  { id: 'r-4', courseId: 'c-4', title: 'Guide Figma pour Débutants', type: 'link', url: '#', category: 'Ressources UI', uploadedAt: '12 Mars 2024', imageUrl: 'https://picsum.photos/seed/r4/400/300' },
-  { id: 'r-5', courseId: 'c-2', title: 'Dataset : Classification d\'images', type: 'document', url: '#', category: 'Projets', uploadedAt: '15 Mars 2024', imageUrl: 'https://picsum.photos/seed/r5/400/300' },
-  { id: 'r-6', courseId: 'c-3', title: 'Physique : Équation de Schrödinger', type: 'video', url: '#', category: 'Lectures', uploadedAt: '18 Mars 2024', imageUrl: 'https://picsum.photos/seed/r6/400/300' },
-  { id: 'r-7', courseId: 'c-2', title: 'Optimisation de Gradient', type: 'document', url: '#', category: 'Maths', uploadedAt: '24 Mars 2024', imageUrl: 'https://picsum.photos/seed/r7/400/300' }
-];
+const generateResources = (): Resource[] => {
+  const types: ('document' | 'video' | 'link')[] = ['document', 'video', 'link'];
+  const categories = ['Lectures', 'Exercices', 'Projets', 'Maths', 'Ressources UI', 'Handouts', 'Pratique'];
+  const resources: Resource[] = [];
+
+  for (let i = 1; i <= 50; i++) {
+    const courseId = `c-${(i % 4) + 1}`;
+    const type = types[i % 3];
+    const category = categories[i % categories.length];
+    
+    resources.push({
+      id: `res-${i}`,
+      courseId,
+      title: `Ressource Pédagogique #${i}: ${category} Approfondi`,
+      type,
+      url: '#',
+      category,
+      uploadedAt: `${(i % 28) + 1} Mars 2024`,
+      imageUrl: `https://picsum.photos/seed/resource-${i}/400/300`
+    });
+  }
+  return resources;
+};
+
+export const MOCK_RESOURCES: Resource[] = generateResources();
 
 export const MOCK_ACTIVITIES = [
   { id: 1, user: 'Maria Garcia', action: 'a partagé une nouvelle ressource', target: 'Intro to UI Design', time: 'il y a 5 min', avatar: 'https://picsum.photos/seed/maria/100/100' },
