@@ -17,20 +17,19 @@ import {
   Calendar as CalendarIcon,
   Award,
   Flame,
-  Star,
   Trophy,
   Target,
   Users,
-  Search,
   Activity,
   BarChart3
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MOCK_ACTIVITIES, MOCK_UPCOMING_EVENTS } from '@/lib/mock-data';
+import { MOCK_ACTIVITIES, MOCK_UPCOMING_EVENTS, MOCK_COURSES } from '@/lib/mock-data';
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from 'next/link';
 import { 
   AreaChart, 
   Area, 
@@ -53,11 +52,10 @@ const chartData = [
 ];
 
 const subjectData = [
-  { subject: 'Maths', value: 85 },
-  { subject: 'IA', value: 92 },
-  { subject: 'Physique', value: 74 },
-  { subject: 'Design', value: 88 },
-  { subject: 'Bio', value: 68 },
+  { subject: 'Maths', value: 85, id: 'c-1' },
+  { subject: 'IA', value: 92, id: 'c-2' },
+  { subject: 'Physique', value: 74, id: 'c-3' },
+  { subject: 'Design', value: 88, id: 'c-4' },
 ];
 
 const engagementData = [
@@ -87,23 +85,29 @@ export default function DashboardPage() {
               <p className="text-muted-foreground text-lg">Votre progression est en hausse de <span className="text-primary font-bold">12%</span> cette semaine.</p>
             </div>
             <div className="flex gap-3">
-              <Button size="lg" variant="outline" className="gap-2 border-2 hover:bg-slate-50 transition-colors">
-                <CalendarIcon className="h-4 w-4" /> Planning
-              </Button>
-              <Button size="lg" className="shadow-xl shadow-primary/20 gap-2 bg-gradient-to-r from-primary to-accent border-none text-white font-bold hover:scale-105 transition-transform">
-                <Zap className="h-4 w-4 fill-current" /> Mode Révision
-              </Button>
+              <Link href="/dashboard">
+                <Button size="lg" variant="outline" className="gap-2 border-2 hover:bg-slate-50 transition-colors">
+                  <CalendarIcon className="h-4 w-4" /> Planning
+                </Button>
+              </Link>
+              <Link href="/ai-tutor">
+                <Button size="lg" className="shadow-xl shadow-primary/20 gap-2 bg-gradient-to-r from-primary to-accent border-none text-white font-bold hover:scale-105 transition-transform">
+                  <Zap className="h-4 w-4 fill-current" /> Mode Révision
+                </Button>
+              </Link>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <StatCard 
-              title="Moyenne" 
-              value="84.2%" 
-              icon={Award} 
-              trend={{ value: 4.8, isUp: true }}
-              className="bg-white/50 border-t-4 border-t-primary"
-            />
+            <Link href="/grades">
+              <StatCard 
+                title="Moyenne" 
+                value="84.2%" 
+                icon={Award} 
+                trend={{ value: 4.8, isUp: true }}
+                className="bg-white/50 border-t-4 border-t-primary cursor-pointer hover:shadow-lg transition-shadow h-full"
+              />
+            </Link>
             <StatCard 
               title="Points XP" 
               value="2,450" 
@@ -137,10 +141,6 @@ export default function DashboardPage() {
                     </CardTitle>
                     <CardDescription>Comparaison avec la moyenne de classe</CardDescription>
                   </div>
-                  <div className="flex gap-2">
-                    <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider bg-primary/5">Personnel</Badge>
-                    <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider bg-muted/50 opacity-50">Classe</Badge>
-                  </div>
                 </CardHeader>
                 <CardContent className="h-[320px] w-full pt-4">
                   <ResponsiveContainer width="100%" height="100%">
@@ -173,19 +173,21 @@ export default function DashboardPage() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {MOCK_UPCOMING_EVENTS.slice(0, 3).map((event) => (
-                      <div key={event.id} className="flex items-center gap-4 p-3 rounded-2xl border bg-card hover:shadow-md hover:border-primary/20 transition-all group cursor-pointer">
-                        <div className="text-center min-w-[64px] border-r pr-4">
-                          <p className="text-xs font-black text-primary">{event.time.split(' ')[0]}</p>
-                          <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight">{event.date}</p>
+                      <Link key={event.id} href={`/courses/${event.course === 'CS302' ? 'c-2' : event.course === 'MATH401' ? 'c-1' : 'c-3'}`}>
+                        <div className="flex items-center gap-4 p-3 rounded-2xl border bg-card hover:shadow-md hover:border-primary/20 transition-all group cursor-pointer mb-3">
+                          <div className="text-center min-w-[64px] border-r pr-4">
+                            <p className="text-xs font-black text-primary">{event.time.split(' ')[0]}</p>
+                            <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight">{event.date}</p>
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-bold text-sm truncate">{event.title}</p>
+                            <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">{event.course}</p>
+                          </div>
+                          <Badge variant={event.type === 'exam' ? 'destructive' : 'secondary'} className="text-[9px] font-black uppercase">
+                            {event.type}
+                          </Badge>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-bold text-sm truncate">{event.title}</p>
-                          <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">{event.course}</p>
-                        </div>
-                        <Badge variant={event.type === 'exam' ? 'destructive' : 'secondary'} className="text-[9px] font-black uppercase">
-                          {event.type}
-                        </Badge>
-                      </div>
+                      </Link>
                     ))}
                   </CardContent>
                 </Card>
@@ -195,14 +197,16 @@ export default function DashboardPage() {
                     <CardTitle className="text-lg font-headline">Maîtrise des Sujets</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-5 pt-2">
-                    {subjectData.slice(0, 4).map((s, i) => (
-                      <div key={i} className="space-y-2">
-                        <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
-                          <span className="text-muted-foreground">{s.subject}</span>
-                          <span className="text-primary">{s.value}%</span>
+                    {subjectData.map((s, i) => (
+                      <Link key={i} href={`/courses/${s.id}`}>
+                        <div className="space-y-2 cursor-pointer group mb-4">
+                          <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
+                            <span className="text-muted-foreground group-hover:text-primary transition-colors">{s.subject}</span>
+                            <span className="text-primary">{s.value}%</span>
+                          </div>
+                          <Progress value={s.value} className="h-3 bg-muted group-hover:bg-primary/10 transition-colors" />
                         </div>
-                        <Progress value={s.value} className="h-3 bg-muted" />
-                      </div>
+                      </Link>
                     ))}
                   </CardContent>
                 </Card>
@@ -229,9 +233,11 @@ export default function DashboardPage() {
                     <p className="text-xs opacity-90 leading-relaxed font-medium">
                       "Il vous reste 3 chapitres non consultés avant l'examen de jeudi."
                     </p>
-                    <Button variant="secondary" className="w-full bg-white text-rose-600 hover:bg-white/90 font-black mt-2 rounded-xl">
-                      Démarrer les révisions
-                    </Button>
+                    <Link href="/courses/c-2">
+                      <Button variant="secondary" className="w-full bg-white text-rose-600 hover:bg-white/90 font-black mt-2 rounded-xl">
+                        Démarrer les révisions
+                      </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>
@@ -245,27 +251,31 @@ export default function DashboardPage() {
                 <CardContent className="p-0">
                   <div className="divide-y divide-muted/50 max-h-[400px] overflow-auto custom-scrollbar">
                     {MOCK_ACTIVITIES.map((act) => (
-                      <div key={act.id} className="p-4 flex gap-4 hover:bg-primary/5 transition-colors cursor-default group">
-                        <Avatar className="h-10 w-10 border-2 border-white shadow-sm group-hover:scale-110 transition-transform">
-                          <AvatarImage src={act.avatar} />
-                          <AvatarFallback className="font-bold">{act.user[0]}</AvatarFallback>
-                        </Avatar>
-                        <div className="min-w-0">
-                          <p className="text-xs font-black leading-none mb-1">{act.user}</p>
-                          <p className="text-xs text-muted-foreground leading-relaxed font-medium">
-                            {act.action} <span className="font-black text-primary">{act.target}</span>
-                          </p>
-                          <p className="text-[10px] font-bold text-muted-foreground mt-1 flex items-center gap-1">
-                             <Clock className="h-3 w-3" /> {act.time}
-                          </p>
+                      <Link key={act.id} href="/resources">
+                        <div className="p-4 flex gap-4 hover:bg-primary/5 transition-colors cursor-pointer group">
+                          <Avatar className="h-10 w-10 border-2 border-white shadow-sm group-hover:scale-110 transition-transform">
+                            <AvatarImage src={act.avatar} />
+                            <AvatarFallback className="font-bold">{act.user[0]}</AvatarFallback>
+                          </Avatar>
+                          <div className="min-w-0">
+                            <p className="text-xs font-black leading-none mb-1">{act.user}</p>
+                            <p className="text-xs text-muted-foreground leading-relaxed font-medium">
+                              {act.action} <span className="font-black text-primary">{act.target}</span>
+                            </p>
+                            <p className="text-[10px] font-bold text-muted-foreground mt-1 flex items-center gap-1">
+                               <Clock className="h-3 w-3" /> {act.time}
+                            </p>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                   <div className="p-4 text-center border-t">
-                    <Button variant="ghost" size="sm" className="text-primary font-black gap-2 hover:bg-primary/5 rounded-xl">
-                      Voir toute l'activité <ArrowRight className="h-4 w-4" />
-                    </Button>
+                    <Link href="/resources">
+                      <Button variant="ghost" size="sm" className="text-primary font-black gap-2 hover:bg-primary/5 rounded-xl">
+                        Voir toute l'activité <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>
@@ -292,19 +302,23 @@ export default function DashboardPage() {
             <p className="text-slate-500 text-lg">Gérez vos cohortes et optimisez l'apprentissage avec l'IA.</p>
           </div>
           <div className="flex gap-2">
-             <Button variant="outline" className="gap-2 border-2 h-14 px-8 rounded-2xl hover:bg-white hover:shadow-lg transition-all font-bold">
-               <CalendarIcon className="h-5 w-5 text-primary" /> Planning Académique
-             </Button>
-             <Button className="gap-2 shadow-2xl shadow-primary/30 h-14 px-8 bg-primary text-white font-black border-none rounded-2xl hover:scale-105 transition-transform">
-               <Zap className="h-5 w-5 fill-current" /> Nouveau Projet IA
-             </Button>
+             <Link href="/dashboard">
+               <Button variant="outline" className="gap-2 border-2 h-14 px-8 rounded-2xl hover:bg-white hover:shadow-lg transition-all font-bold">
+                 <CalendarIcon className="h-5 w-5 text-primary" /> Planning Académique
+               </Button>
+             </Link>
+             <Link href="/admin">
+               <Button className="gap-2 shadow-2xl shadow-primary/30 h-14 px-8 bg-primary text-white font-black border-none rounded-2xl hover:scale-105 transition-transform">
+                 <Zap className="h-5 w-5 fill-current" /> Nouveau Projet IA
+               </Button>
+             </Link>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <StatCard title="Étudiants Actifs" value="124" icon={Users} trend={{ value: 12, isUp: true }} className="bg-white shadow-xl shadow-slate-200/50 border-none" />
           <StatCard title="Ressources Partagées" value="48" icon={BookOpen} description="5 ajoutées cette semaine" iconColor="bg-blue-100 text-blue-600" />
-          <StatCard title="Moyenne de Classe" value="78.5%" icon={Star} trend={{ value: 2.1, isUp: false }} iconColor="bg-amber-100 text-amber-600" />
+          <StatCard title="Moyenne de Classe" value="78.5%" icon={GraduationCap} trend={{ value: 2.1, isUp: false }} iconColor="bg-amber-100 text-amber-600" />
           <StatCard title="Taux de Rendu" value="94%" icon={CheckCircle} iconColor="bg-emerald-100 text-emerald-600" />
         </div>
 
@@ -329,21 +343,23 @@ export default function DashboardPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                   <div className="space-y-8 pt-4">
                      {[
-                       { name: 'Intelligence Artificielle', val: 94, color: 'hsl(var(--primary))' },
-                       { name: 'Mathématiques Avancées', val: 62, color: '#f59e0b' },
-                       { name: 'Bio-Informatique', val: 78, color: '#6366f1' },
-                       { name: 'Design UI/UX', val: 88, color: '#10b981' }
+                       { name: 'Intelligence Artificielle', val: 94, color: 'hsl(var(--primary))', id: 'c-2' },
+                       { name: 'Mathématiques Avancées', val: 62, color: '#f59e0b', id: 'c-1' },
+                       { name: 'Bio-Informatique', val: 78, color: '#6366f1', id: 'c-6' },
+                       { name: 'Design UI/UX', val: 88, color: '#10b981', id: 'c-4' }
                      ].map((c, i) => (
-                        <div key={i} className="space-y-3">
-                          <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
-                            <span className="text-slate-500 flex items-center gap-2">
-                              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: c.color }} />
-                              {c.name}
-                            </span>
-                            <span className="text-primary font-black text-sm">{c.val}%</span>
+                        <Link key={i} href={`/courses/${c.id}`}>
+                          <div className="space-y-3 cursor-pointer group mb-4">
+                            <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest">
+                              <span className="text-slate-500 flex items-center gap-2 group-hover:text-primary transition-colors">
+                                <span className="h-2 w-2 rounded-full" style={{ backgroundColor: c.color }} />
+                                {c.name}
+                              </span>
+                              <span className="text-primary font-black text-sm">{c.val}%</span>
+                            </div>
+                            <Progress value={c.val} className="h-3 bg-slate-100" />
                           </div>
-                          <Progress value={c.val} className="h-3 bg-slate-100" />
-                        </div>
+                        </Link>
                      ))}
                   </div>
                   <div className="h-[250px] w-full">
@@ -381,7 +397,9 @@ export default function DashboardPage() {
                      <div className="flex-1 min-w-0">
                         <p className="text-sm font-black text-rose-900 uppercase tracking-tight">12 copies à corriger</p>
                         <p className="text-xs text-rose-700 mt-1 font-medium italic">Quiz : IA (Retard J-2)</p>
-                        <Button size="sm" className="bg-rose-600 hover:bg-rose-700 text-white font-black h-9 px-6 rounded-xl shadow-md mt-3 w-full">Corriger maintenant</Button>
+                        <Link href="/courses/c-2">
+                          <Button size="sm" className="bg-rose-600 hover:bg-rose-700 text-white font-black h-9 px-6 rounded-xl shadow-md mt-3 w-full">Corriger maintenant</Button>
+                        </Link>
                      </div>
                   </div>
                   <div className="flex gap-4 p-5 rounded-[2rem] bg-amber-50 border-2 border-amber-100 shadow-sm group hover:bg-amber-100/50 transition-all hover:scale-[1.02]">
@@ -391,13 +409,17 @@ export default function DashboardPage() {
                      <div className="flex-1 min-w-0">
                         <p className="text-sm font-black text-amber-900 uppercase tracking-tight">Question Prioritaire</p>
                         <p className="text-xs text-amber-700 mt-1 font-medium">Alex Johnson attend votre retour.</p>
-                        <Button size="sm" variant="outline" className="border-amber-200 text-amber-800 bg-white font-black h-9 px-6 rounded-xl shadow-sm hover:bg-amber-100 mt-3 w-full">Répondre</Button>
+                        <Link href="/admin">
+                          <Button size="sm" variant="outline" className="border-amber-200 text-amber-800 bg-white font-black h-9 px-6 rounded-xl shadow-sm hover:bg-amber-100 mt-3 w-full">Répondre</Button>
+                        </Link>
                      </div>
                   </div>
                   <div className="p-4 text-center border-t mt-2">
-                    <Button variant="ghost" size="sm" className="text-slate-400 font-black gap-2 hover:bg-slate-50 uppercase tracking-widest text-[10px]">
-                      Voir tout l'historique d'alertes <ArrowRight className="h-3 w-3" />
-                    </Button>
+                    <Link href="/dashboard">
+                      <Button variant="ghost" size="sm" className="text-slate-400 font-black gap-2 hover:bg-slate-50 uppercase tracking-widest text-[10px]">
+                        Voir tout l'historique d'alertes <ArrowRight className="h-3 w-3" />
+                      </Button>
+                    </Link>
                   </div>
                </CardContent>
              </Card>
@@ -412,7 +434,9 @@ export default function DashboardPage() {
                    </div>
                    <h4 className="text-xl font-black font-headline mb-1">Croissance d'Engagement</h4>
                    <p className="text-sm text-slate-500 font-medium mb-4">L'utilisation des ressources IA a augmenté significativement ce mois-ci.</p>
-                   <Button className="w-full bg-primary font-black rounded-xl h-12 shadow-lg shadow-primary/20">Voir les analyses détaillées</Button>
+                   <Link href="/dashboard">
+                    <Button className="w-full bg-primary font-black rounded-xl h-12 shadow-lg shadow-primary/20">Voir les analyses détaillées</Button>
+                   </Link>
                 </CardContent>
              </Card>
            </div>
@@ -421,4 +445,3 @@ export default function DashboardPage() {
     </AppShell>
   );
 }
-

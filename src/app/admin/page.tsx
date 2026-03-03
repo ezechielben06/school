@@ -26,6 +26,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
+import Link from 'next/link';
 
 export default function AdminPage() {
   const { role } = useAuth();
@@ -47,9 +48,11 @@ export default function AdminPage() {
             <p className="text-slate-500 text-lg font-medium">Supervisez vos cursus, rosters et paramètres globaux.</p>
           </div>
           <div className="flex gap-3">
-            <Button variant="outline" className="gap-2 h-14 px-8 rounded-2xl border-2 font-bold hover:bg-white hover:shadow-lg transition-all">
-               <Settings className="h-5 w-5" /> Paramètres
-            </Button>
+            <Link href="/settings">
+              <Button variant="outline" className="gap-2 h-14 px-8 rounded-2xl border-2 font-bold hover:bg-white hover:shadow-lg transition-all">
+                 <Settings className="h-5 w-5" /> Paramètres
+              </Button>
+            </Link>
             <Button className="gap-2 shadow-2xl shadow-primary/30 h-14 px-8 bg-primary text-white font-black border-none rounded-2xl hover:scale-105 transition-transform">
               <Plus className="h-5 w-5" /> Créer un Cours
             </Button>
@@ -86,42 +89,44 @@ export default function AdminPage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {MOCK_COURSES.map((course) => (
-                <Card key={course.id} className="border-none shadow-2xl bg-white hover:scale-[1.02] transition-all duration-300 group overflow-hidden">
-                  <div className="h-2 w-full bg-gradient-to-r from-primary via-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <CardHeader className="p-8">
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="px-3 py-1.5 bg-primary/10 rounded-xl text-[10px] font-black text-primary uppercase tracking-[0.2em]">
-                        {course.code}
+                <Link key={course.id} href={`/courses/${course.id}`}>
+                  <Card className="border-none shadow-2xl bg-white hover:scale-[1.02] transition-all duration-300 group overflow-hidden h-full">
+                    <div className="h-2 w-full bg-gradient-to-r from-primary via-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <CardHeader className="p-8">
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="px-3 py-1.5 bg-primary/10 rounded-xl text-[10px] font-black text-primary uppercase tracking-[0.2em]">
+                          {course.code}
+                        </div>
+                        <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-slate-100">
+                          <MoreVertical className="h-5 w-5 text-slate-400" />
+                        </Button>
                       </div>
-                      <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-slate-100">
-                        <MoreVertical className="h-5 w-5 text-slate-400" />
-                      </Button>
-                    </div>
-                    <CardTitle className="text-2xl font-black leading-tight group-hover:text-primary transition-colors">{course.name}</CardTitle>
-                    <CardDescription className="line-clamp-2 text-base font-medium text-slate-500 mt-2">{course.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="px-8 pb-8 flex items-center justify-between border-t border-slate-50 pt-6 mt-auto">
-                    <div className="flex items-center gap-4">
-                      <div className="flex -space-x-3">
-                        {[1, 2, 3].map((i) => (
-                          <Avatar key={i} className="h-9 w-9 border-4 border-white shadow-sm ring-1 ring-slate-100">
-                            <AvatarImage src={`https://picsum.photos/seed/student-${course.id}-${i}/100/100`} />
-                            <AvatarFallback>S</AvatarFallback>
-                          </Avatar>
-                        ))}
-                        <div className="h-9 w-9 rounded-full bg-slate-50 flex items-center justify-center text-[10px] font-black text-slate-400 border-4 border-white shadow-sm ring-1 ring-slate-100">
-                          +29
+                      <CardTitle className="text-2xl font-black leading-tight group-hover:text-primary transition-colors">{course.name}</CardTitle>
+                      <CardDescription className="line-clamp-2 text-base font-medium text-slate-500 mt-2">{course.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="px-8 pb-8 flex items-center justify-between border-t border-slate-50 pt-6 mt-auto">
+                      <div className="flex items-center gap-4">
+                        <div className="flex -space-x-3">
+                          {[1, 2, 3].map((i) => (
+                            <Avatar key={i} className="h-9 w-9 border-4 border-white shadow-sm ring-1 ring-slate-100">
+                              <AvatarImage src={`https://picsum.photos/seed/student-${course.id}-${i}/100/100`} />
+                              <AvatarFallback>S</AvatarFallback>
+                            </Avatar>
+                          ))}
+                          <div className="h-9 w-9 rounded-full bg-slate-50 flex items-center justify-center text-[10px] font-black text-slate-400 border-4 border-white shadow-sm ring-1 ring-slate-100">
+                            +29
+                          </div>
+                        </div>
+                        <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                          32 Inscrits
                         </div>
                       </div>
-                      <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                        32 Inscrits
-                      </div>
-                    </div>
-                    <Button variant="ghost" className="gap-2 text-primary font-black p-0 hover:bg-transparent hover:translate-x-1 transition-transform">
-                      Gérer <ChevronRight className="h-5 w-5" />
-                    </Button>
-                  </CardContent>
-                </Card>
+                      <Button variant="ghost" className="gap-2 text-primary font-black p-0 hover:bg-transparent hover:translate-x-1 transition-transform">
+                        Gérer <ChevronRight className="h-5 w-5" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Link>
               ))}
             </div>
           </div>
@@ -164,14 +169,15 @@ export default function AdminPage() {
                   ))}
                 </div>
                 <div className="p-8 border-t bg-slate-50/50 text-center">
-                  <Button variant="link" className="text-primary font-black uppercase tracking-widest text-xs gap-2">
-                    Voir tout le roster <ChevronRight className="h-4 w-4" />
-                  </Button>
+                  <Link href="/admin">
+                    <Button variant="link" className="text-primary font-black uppercase tracking-widest text-xs gap-2">
+                      Voir tout le roster <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
             
-            {/* Quick Actions Footer */}
             <div className="p-8 rounded-[2.5rem] bg-slate-900 text-white relative overflow-hidden group shadow-2xl">
                <div className="relative z-10">
                  <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] mb-3">Statut Système</p>
