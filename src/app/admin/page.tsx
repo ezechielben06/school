@@ -25,6 +25,7 @@ import { MOCK_COURSES } from '@/lib/mock-data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { Progress } from '@/components/ui/progress';
 
 export default function AdminPage() {
   const { role } = useAuth();
@@ -192,4 +193,3 @@ export default function AdminPage() {
     </AppShell>
   );
 }
-
